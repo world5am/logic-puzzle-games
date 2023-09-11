@@ -1,0 +1,18 @@
+{
+	"useTabs": true,
+	"singleQuote": true,
+	"trailingComma": "none",
+	"semi": false,
+	"printWidth": 90,
+	"bracketSameLine": false,
+	"bracketSpacing": true,
+	"singleAttributePerLine": true,
+	"arrowParens": "always",
+	"tabWidth": 2,
+	"svelteSortOrder": "options-scripts-markup-styles",
+	"plugins": ["prettier-plugin-svelte"],
+	"pluginSearchDirs": ["."],
+	"overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }],
+	"svelteIndentScriptAndStyle": true,
+	"svelteAllowShorthand": true
+}
