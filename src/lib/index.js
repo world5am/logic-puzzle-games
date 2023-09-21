@@ -1,4 +1,9 @@
 // place files you want to import through the `$lib` alias in this folder.
+
+/**
+ * Example sudoku puzzle
+ * @type {number[][]}
+ */
 export let sudokuGrid = [
 	[5, 3, 0, 0, 7, 0, 0, 0, 0],
 	[6, 0, 0, 1, 9, 5, 0, 0, 0],
@@ -11,9 +16,10 @@ export let sudokuGrid = [
 	[0, 0, 0, 0, 8, 0, 0, 7, 9]
 ]
 
+export let displayValues = ['', 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
 /**
- * Verify if the Sudoku board is valid. Checks rows, columns
- * and 3x3 block for duplicates. When
+ * Checks the selected row, column and 3x3 block for duplicates.
  * @param {any[][]} editedGrid
  * @returns {{row: number, col: number, isValid: boolean}}}
  */
@@ -36,7 +42,6 @@ export function isSudokuValid(editedGrid) {
 	}
 
 	// Check columns
-
 	for (let col = 0; col < 9; col++) {
 		let colSet = new Set()
 		for (let row = 0; row < 9; row++) {

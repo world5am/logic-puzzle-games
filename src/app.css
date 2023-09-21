@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* * {
+    outline: red solid 1px;
+}  */
+
+@layer base {
+	@media (orientation: landscape) {
+		/* For mobile phones in landscape orientation */
+
+		:root {
+			--cell-width-from-height: calc(100vh / 9.5);
+			--number-font-size: calc(100vh / 12);
+		}
+	}
+
+	@media (orientation: landscape) and (min-width: 1280px) {
+		/* For bigger displays with landscape orientation */
+
+		:root {
+			--cell-width-from-height: calc(100vh / 12);
+			--number-font-size: calc(100vh / 16);
+		}
+	}
+
+	:root {
+		--cell-width: var(--cell-width-from-height, calc(100vw / 9.5));
+		--cell-height: var(--cell-width);
+	}
+}
