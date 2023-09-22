@@ -1,21 +1,21 @@
 <script>
-	import { sudokuGrid, displayValues} from '$lib'
+	import { sudokuGrid, displayValues } from '$lib'
 	import { createEventDispatcher, onMount } from 'svelte'
 
 	const dispatch = createEventDispatcher()
 
-	let lockedCellSet = new Set() // set of uneditable clue cells given at the start
-
 	let /**@type {Element|null}*/ previousCell
+
+	export let lockedCellSet = new Set() // set of uneditable clue cells given at the start
 
 	// ===== FUNCTIONALITY STARTS HERE =========
 
 	onMount(() => {
 		let cells = document.querySelectorAll('.cell')
-		// console.log(cells.length)
 		cells.forEach((cell) => {
 			if (cell instanceof HTMLElement && cell.innerHTML !== '') {
 				lockedCellSet.add(cell)
+
 				if (cell.dataset.row == '2' || cell.dataset.row == '5') {
 					cell.classList.add('bg-slate-200/40', 'border-b-2', 'border-b-red-500')
 				} else {
@@ -23,14 +23,13 @@
 				}
 			}
 		})
-
-		// console.log(lockedCellSet.size, 81 - lockedCellSet.size)
 	})
 
 	/** @param {MouseEvent} ev */
 	function handleCellClick(ev) {
 		previousCell = document.querySelector('.bg-blue-100')
 
+		/* Resets background and text color of previously highlighted locked cells */
 		if (previousCell !== null) {
 			previousCell.classList.remove('bg-blue-100', 'text-blue-900')
 			lockedCellSet.has(previousCell)
@@ -40,13 +39,17 @@
 
 		highlightSelectedCell(ev)
 	}
+
 	/** @param {Event} ev*/
 	function highlightSelectedCell(ev) {
 		if (ev.target instanceof HTMLElement) {
 			const trg = ev.target
+
+			/* BG Color and Text Color handling */
 			trg.classList.remove('bg-slate-200/40')
 			trg.classList.add('bg-blue-100', 'text-blue-900')
 
+			/* Border Bottom handling */
 			if (trg.dataset.row == '2' || trg.dataset.row == '5')
 				trg.classList.add('border-b-2', 'border-b-red-500')
 			else trg.classList.add('border-b', 'border-b-slate-300')
@@ -55,24 +58,42 @@
 				element: trg,
 				isEditable: !lockedCellSet.has(trg)
 			})
+
+			findSameValues(ev.target, lockedCellSet)
 		}
-		
-		findSameValues(ev)
 	}
-	
-	/** @param {Event} ev */
-	function findSameValues(ev) {
-	let cells = document.querySelectorAll('.cell')
-	cells.forEach((cell)=>{
-		if (cell instanceof HTMLElement && ev.target instanceof HTMLElement && cell.innerHTML !== '') {
-			cell.classList.remove('bg-blue-200')
-			if (ev.target.innerHTML == cell.innerHTML && ev.target !== cell) {
-				cell.classList.add('bg-blue-200')
+
+	/**
+	 * @param {HTMLElement} elmt
+	 * @param {Set<any>} lockedCellSet
+	 */
+	export function findSameValues(elmt, lockedCellSet) {
+		let cells = document.querySelectorAll('.cell')
+		cells.forEach((cell) => {
+			if (
+				cell instanceof HTMLElement &&
+				elmt instanceof HTMLElement &&
+				cell.innerHTML !== ''
+			) {
+				lockedCellSet.has(cell)
+					? cell.classList.replace('bg-blue-200', 'bg-slate-200/40')
+					: cell.classList.remove('bg-blue-200')
+
+				if (
+					elmt.innerHTML == cell.innerHTML &&
+					elmt !== cell &&
+					lockedCellSet.has(cell)
+				) {
+					cell.classList.replace('bg-slate-200/40', 'bg-blue-200')
+				} else if (
+					elmt.innerHTML == cell.innerHTML &&
+					elmt !== cell &&
+					!lockedCellSet.has(cell)
+				)
+					cell.classList.add('bg-blue-200')
 			}
-		}
-	})
-}
-	
+		})
+	}
 </script>
 
 <div class="board">

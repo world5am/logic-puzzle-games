@@ -23,7 +23,7 @@ export let displayValues = ['', 1, 2, 3, 4, 5, 6, 7, 8, 9]
  * @param {any[][]} editedGrid
  * @returns {{row: number, col: number, isValid: boolean}}}
  */
-export function isSudokuValid(editedGrid) {
+export function checkSudoku(editedGrid) {
 	// Check rows
 	for (let row = 0; row < 9; row++) {
 		let rowSet = new Set()

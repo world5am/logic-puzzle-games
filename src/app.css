@@ -8,7 +8,7 @@
 
 @layer base {
 	@media (orientation: landscape) {
-		/* For mobile phones in landscape orientation */
+		/* For mobile phones: landscape */
 
 		:root {
 			--cell-width-from-height: calc(100vh / 9.5);
@@ -17,7 +17,7 @@
 	}
 
 	@media (orientation: landscape) and (min-width: 1280px) {
-		/* For bigger displays with landscape orientation */
+		/* For larger displays: landscape  */
 
 		:root {
 			--cell-width-from-height: calc(100vh / 12);
