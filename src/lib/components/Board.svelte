@@ -8,6 +8,8 @@
 
 	export let lockedCellSet = new Set() // set of uneditable clue cells given at the start
 
+	export let /**@type {boolean}*/ isBoardValid
+
 	// ===== FUNCTIONALITY STARTS HERE =========
 
 	onMount(() => {
@@ -16,11 +18,10 @@
 			if (cell instanceof HTMLElement && cell.innerHTML !== '') {
 				lockedCellSet.add(cell)
 
-				if (cell.dataset.row == '2' || cell.dataset.row == '5') {
-					cell.classList.add('bg-slate-200/40', 'border-b-2', 'border-b-red-500')
-				} else {
-					cell.classList.add('bg-slate-200/40', 'border-b', 'border-b-slate-300')
-				}
+				cell.dataset.row == '2' || cell.dataset.row == '5'
+					? cell.classList.add('bg-slate-200/40', 'border-b-2', 'border-b-red-500')
+					: cell.classList.add('bg-slate-200/40', 'border-b', 'border-b-slate-300')
+					
 			}
 		})
 	})
@@ -96,7 +97,7 @@
 	}
 </script>
 
-<div class="board">
+<div class="board" class:incorrect={!isBoardValid}>
 	{#each sudokuGrid as rows, i}
 		<div class="row">
 			{#each rows as cell, j}
@@ -104,6 +105,7 @@
 					data-row={i}
 					data-col={j}
 					on:click={handleCellClick}
+					on:contextmenu|preventDefault
 					on:keydown={() => {}}
 					role="cell"
 					tabindex="0"
@@ -120,6 +122,10 @@
 	.board {
 		@apply grid grid-rows-sudoku bg-white;
 		width: calc(var(--cell-width) * 9); /* @apply w-[calc(var(--cell-width) * 9)] */
+	}
+	
+	.incorrect {
+		@apply border-8 border-red-500 box-content
 	}
 	.row {
 		@apply h-[--cell-height] grid grid-cols-sudoku border-b border-b-slate-300 last:border-b-0;

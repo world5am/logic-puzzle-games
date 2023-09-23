@@ -3,8 +3,6 @@
 	import Board from '$lib/components/Board.svelte'
 	import Keypad from '$lib/components/Keypad.svelte'
 
-	let editSudokuGrid = sudokuGrid
-
 	let /**@type {Board}*/ board
 	let /**@type {Set<HTMLElement>}*/ lockedCellSet
 
@@ -17,8 +15,10 @@
 
 	let /**@type {boolean}*/ isBoardValid = true
 
-	let /**@type {any[] | NodeListOf<Element>}*/ oldCells
-	let /**@type {any[] | NodeListOf<Element>}*/ cells
+
+
+	//:::--=--=--  EVENT HANDLERS  --=--::::::
+
 
 	/**@param {CustomEvent} ev*/
 	function handleSelectedCell(ev) {
@@ -38,15 +38,15 @@
 
 			if (row !== undefined && col !== undefined) {
 				selectedElement.innerHTML = ''
-				editSudokuGrid[row][col] = 0
-				isBoardValid = checkSudoku(editSudokuGrid).isValid
+				sudokuGrid[row][col] = 0
+				isBoardValid = checkSudoku(sudokuGrid).isValid
 				board.findSameValues(selectedElement, lockedCellSet)
 			}
 		}
 	}
 
 	/**@param {CustomEvent} ev*/
-	function handleKeypadEvent(ev) {
+	function handleKeypadNumEvent(ev) {
 		if (
 			selectedElement &&
 			selectedElement.dataset.row &&
@@ -59,47 +59,42 @@
 
 			if (row !== undefined && col !== undefined) {
 				selectedElement.innerHTML = value.toString()
-				editSudokuGrid[row][col] = value
-				isBoardValid = checkSudoku(editSudokuGrid).isValid
+				sudokuGrid[row][col] = value
+				isBoardValid = checkSudoku(sudokuGrid).isValid
 				board.findSameValues(selectedElement, lockedCellSet)
 			}
 		}
 	}
 </script>
 
+<!-- :::--=--=--  DOM  --=--:::::: -->
+
 <svelte:head>
 	<title>Sudoku - world5am</title>
 </svelte:head>
 
-
-
 <section class="flex justify-around items-center sm:flex-col h-screen mx-auto max-w-6xl">
 	<div class="flex flex-col gap-1">
 		<Board
-			bind:this={board}	
+			bind:this={board}
 			bind:lockedCellSet
 			on:select={handleSelectedCell}
+			on:contextmenu={handleKeypadDeleteEvent}
+			{isBoardValid}
 		/>
-		{#if isBoardValid}
-			<div class="p-1 text-center text-md font-sourcepro text-green-900 bg-green-500">
-				Valid
-			</div>
-		{:else}
-		<div class="p-1 text-center font-sourcepro bg-red-500 text-red-900">
-			Invalid
-		</div>
-		{/if}
 	</div>
 	<div>
 		<Keypad
 			on:delete={handleKeypadDeleteEvent}
-			on:number={handleKeypadEvent}
+			on:number={handleKeypadNumEvent}
 		/>
 	</div>
 </section>
 
+<!-- :::--=--=-- MORE CSS --=--:::::: -->
+
 <style lang="postcss">
-	:global(body){
-		@apply bg-black
+	:global(body) {
+		@apply bg-black;
 	}
 </style>
