@@ -26,15 +26,22 @@
 		isCellEditable = ev.detail.isEditable
 	}
 
-	/**@param {CustomEvent} ev*/
-	function handleKeypadDeleteEvent(ev) {
-		if (selectedElement && isCellEditable) {
-			selectedElement.innerHTML = ''
-			if (row !== undefined && col !== undefined) editSudokuGrid[row][col] = 0
+	function handleKeypadDeleteEvent() {
+		if (
+			selectedElement &&
+			selectedElement.dataset.row &&
+			selectedElement.dataset.col &&
+			isCellEditable
+		) {
+			row = parseInt(selectedElement.dataset.row)
+			col = parseInt(selectedElement.dataset.col)
 
-			isBoardValid = checkSudoku(editSudokuGrid).isValid
-			console.log(isBoardValid)
-			board.findSameValues(selectedElement, lockedCellSet)
+			if (row !== undefined && col !== undefined) {
+				selectedElement.innerHTML = ''
+				editSudokuGrid[row][col] = 0
+				isBoardValid = checkSudoku(editSudokuGrid).isValid
+				board.findSameValues(selectedElement, lockedCellSet)
+			}
 		}
 	}
 
@@ -64,23 +71,25 @@
 	<title>Sudoku - world5am</title>
 </svelte:head>
 
-<section class="flex justify-around items-center sm:flex-col h-screen bg-black">
-	<div>
+
+
+<section class="flex justify-around items-center sm:flex-col h-screen mx-auto max-w-6xl">
+	<div class="flex flex-col gap-1">
 		<Board
 			bind:this={board}	
 			bind:lockedCellSet
 			on:select={handleSelectedCell}
 		/>
-	</div>
-	{#if isBoardValid}
-		<div class="w-full text-center font-sourcepro text-green-900 bg-green-500">
-			Valid
+		{#if isBoardValid}
+			<div class="p-1 text-center text-md font-sourcepro text-green-900 bg-green-500">
+				Valid
+			</div>
+		{:else}
+		<div class="p-1 text-center font-sourcepro bg-red-500 text-red-900">
+			Invalid
 		</div>
-	{:else}
-	<div class="w-full text-center font-sourcepro bg-red-500 text-red-900">
-		Invalid
+		{/if}
 	</div>
-	{/if}
 	<div>
 		<Keypad
 			on:delete={handleKeypadDeleteEvent}
@@ -88,3 +97,9 @@
 		/>
 	</div>
 </section>
+
+<style lang="postcss">
+	:global(body){
+		@apply bg-black
+	}
+</style>
