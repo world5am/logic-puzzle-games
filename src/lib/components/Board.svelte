@@ -30,14 +30,14 @@
 
 	/** @param {MouseEvent} ev */
 	function handleCellClick(ev) {
-		previousCell = document.querySelector('.bg-blue-100')
+		previousCell = document.querySelector('.bg-green-100')
 
 		/** 
 		 * Resets background and text-color of locked cells,
 		 * highlighted previously. 
 		 */
 		if (previousCell !== null) {
-			previousCell.classList.remove('bg-blue-100', 'text-blue-900')
+			previousCell.classList.remove('bg-green-100')
 			lockedCellSet.has(previousCell)
 				? previousCell.classList.add('bg-slate-200/40')
 				: undefined
@@ -53,7 +53,7 @@
 
 			/* BG Color and Text Color handling */
 			trg.classList.remove('bg-slate-200/40')
-			trg.classList.add('bg-blue-100', 'text-blue-900')
+			trg.classList.add('bg-green-100')
 
 			/* Border Bottom handling */
 			if (trg.dataset.row == '2' || trg.dataset.row == '5')
