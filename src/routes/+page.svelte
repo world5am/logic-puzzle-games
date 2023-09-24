@@ -73,8 +73,8 @@
 	<title>Sudoku - world5am</title>
 </svelte:head>
 
-<section class="flex justify-around items-center sm:flex-col h-screen mx-auto max-w-6xl">
-	<div class="flex flex-col gap-1">
+<section class="flex sm:flex-col justify-around items-center h-screen mx-auto max-w-6xl">
+	<div>
 		<Board
 			bind:this={board}
 			bind:lockedCellSet

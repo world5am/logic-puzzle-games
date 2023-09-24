@@ -34,14 +34,11 @@
 
 <style lang="postcss">
 	.keypad {
-		display: grid;
-		grid-template-columns: repeat(3, 6em);
-		grid-template-rows: repeat(4, 4em);
-		grid-gap: 0.5em;
+		@apply grid grid-cols-3 grid-rows-4 gap-2
 	}
 
 	button {
-		@apply bg-sky-500 text-sky-100 font-sourcepro font-bold text-2xl rounded-sm hover:bg-sky-400 hover:text-sky-50 transition duration-150 ease-in;
+		@apply px-2 py-4 bg-sky-500 text-sky-100 font-sourcepro font-bold text-2xl rounded-sm hover:bg-sky-400 hover:text-sky-50 transition duration-150 ease-in;
 	}
 
 	button.copy {

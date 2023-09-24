@@ -1,6 +1,7 @@
 <script>
 	import { sudokuGrid, displayValues } from '$lib'
 	import { createEventDispatcher, onMount } from 'svelte'
+	import { fade } from 'svelte/transition'
 
 	const dispatch = createEventDispatcher()
 
@@ -21,7 +22,8 @@
 				cell.dataset.row == '2' || cell.dataset.row == '5'
 					? cell.classList.add('bg-slate-200/40', 'border-b-2', 'border-b-red-500')
 					: cell.classList.add('bg-slate-200/40', 'border-b', 'border-b-slate-300')
-					
+			} else {
+				cell.classList.add('text-blue-600')
 			}
 		})
 	})
@@ -30,7 +32,10 @@
 	function handleCellClick(ev) {
 		previousCell = document.querySelector('.bg-blue-100')
 
-		/* Resets background and text color of previously highlighted locked cells */
+		/** 
+		 * Resets background and text-color of locked cells,
+		 * highlighted previously. 
+		 */
 		if (previousCell !== null) {
 			previousCell.classList.remove('bg-blue-100', 'text-blue-900')
 			lockedCellSet.has(previousCell)
