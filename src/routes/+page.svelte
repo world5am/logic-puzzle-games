@@ -67,7 +67,7 @@
 	}
 </script>
 
-<!-- :::--=--=--  DOM  --=--:::::: -->
+<!-- :::--=--=--  DOM  --=--:::: -->
 
 <svelte:head>
 	<title>Sudoku - world5am</title>

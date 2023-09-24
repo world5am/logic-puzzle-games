@@ -125,7 +125,7 @@
 
 <style lang="postcss">
 	.board {
-		@apply grid grid-rows-sudoku bg-white;
+		@apply grid grid-rows-sudoku border-8 border-transparent box-content;
 		width: calc(var(--cell-width) * 9); /* @apply w-[calc(var(--cell-width) * 9)] */
 	}
 	
@@ -133,10 +133,10 @@
 		@apply border-8 border-red-500 box-content
 	}
 	.row {
-		@apply h-[--cell-height] grid grid-cols-sudoku border-b border-b-slate-300 last:border-b-0;
+		@apply h-[--cell-height] grid grid-cols-sudoku bg-white border-b border-b-slate-300 last:border-b-0;
 	}
 	.cell {
-		@apply h-[--cell-height] flex justify-center items-center font-sourcepro text-custom select-none cursor-pointer border-r border-r-slate-300 last:border-r-0;
+		@apply h-[--cell-height]  flex justify-center items-center font-sourcepro text-custom select-none cursor-pointer border-r border-r-slate-300 last:border-r-0;
 	}
 
 	.cell:nth-child(3n):not(:nth-child(9n)) {
