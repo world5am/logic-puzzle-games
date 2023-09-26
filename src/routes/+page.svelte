@@ -73,7 +73,7 @@
 	<title>Sudoku - world5am</title>
 </svelte:head>
 
-<section class="flex sm:flex-col justify-around items-center h-screen mx-auto max-w-6xl">
+<section class="flex flex-col xl:flex-row justify-around items-center h-screen mx-auto max-w-6xl">
 	<div>
 		<Board
 			bind:this={board}

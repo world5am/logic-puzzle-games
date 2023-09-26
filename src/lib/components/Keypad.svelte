@@ -34,18 +34,18 @@
 
 <style lang="postcss">
 	.keypad {
-		@apply grid grid-cols-3 grid-rows-4 gap-2
+		@apply grid grid-rows-numpad grid-cols-numpad gap-2 lg:gap-4 xl:gap-2
 	}
 
 	button {
-		@apply px-2 py-4 bg-sky-500 text-sky-100 font-sourcepro font-bold text-2xl rounded-sm hover:bg-sky-400 hover:text-sky-50 transition duration-150 ease-in;
+		@apply flex items-center justify-center bg-sky-500 text-sky-100 font-sourcepro font-bold text-2xl lg:text-5xl xl:text-4xl rounded-sm hover:bg-sky-400 hover:text-sky-50 transition duration-150 ease-in;
 	}
 
 	button.copy {
-		@apply bg-blue-500 text-blue-50 disabled:bg-slate-300 disabled:text-slate-50 hover:bg-blue-600 hover:text-blue-100;
+		@apply bg-blue-500 text-blue-50 lg:text-4xl xl:text-2xl  disabled:bg-slate-300 disabled:text-slate-50 hover:bg-blue-600 hover:text-blue-100 overflow-hidden
 	}
 
 	button.delete {
-		@apply bg-red-500 text-red-50 hover:bg-red-600;
+		@apply bg-red-500 lg:text-4xl text-red-50 xl:text-2xl hover:bg-red-600;
 	}
 </style>

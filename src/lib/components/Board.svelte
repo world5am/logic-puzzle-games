@@ -127,6 +127,7 @@
 	.board {
 		@apply grid grid-rows-sudoku border-8 border-transparent box-content;
 		width: calc(var(--cell-width) * 9); /* @apply w-[calc(var(--cell-width) * 9)] */
+		
 	}
 	
 	.incorrect {

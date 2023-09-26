@@ -15,10 +15,12 @@ export default {
 				custom: ['var(--number-font-size, calc(100vh / 24))', '24px']
 			},
 			gridTemplateRows: {
-				sudoku: 'repeat(9, var(--cell-height))'
+				sudoku: 'repeat(9, var(--cell-height))',
+				numpad: 'repeat(4, var(--cell-height))'
 			},
 			gridTemplateColumns: {
-				sudoku: 'repeat(9, var(--cell-height))'
+				sudoku: 'repeat(9, var(--cell-height))',
+				numpad: 'repeat(3, var(--cell-height))'
 			}
 		}
 	}
